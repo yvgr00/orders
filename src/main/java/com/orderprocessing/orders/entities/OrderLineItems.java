@@ -22,14 +22,24 @@ import lombok.Setter;
 @NoArgsConstructor
 @Table(name="order_line_items")
 public class OrderLineItems {
-	
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="order_item_id")
 	private Long orderItemId;
-	
-	
-	
+
+	@Column(name="quantity")
+	private Long quantity;
+
+	@ManyToOne
+	@JoinColumn(name="order_id")
+	@JsonProperty(access=Access.WRITE_ONLY)
+	private Order order;
+
+	@ManyToOne
+	@JoinColumn(name="item_id")
+	private Item item;
+
 	public OrderLineItems(Long quantity) {
 		this.quantity = quantity;
 	}
@@ -39,17 +49,5 @@ public class OrderLineItems {
 		this.order = order;
 		this.item = item;
 	}
-
-	@Column(name="quantity")
-	private Long quantity;
-	
-	@ManyToOne
-	@JoinColumn(name="order_id")
-	@JsonProperty(access=Access.WRITE_ONLY)
-	private Order order;
-	
-	@ManyToOne
-	@JoinColumn(name="item_id")
-	private Item item;
 
 }

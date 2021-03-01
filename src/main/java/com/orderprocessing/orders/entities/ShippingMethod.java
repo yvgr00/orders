@@ -19,12 +19,12 @@ import lombok.Setter;
 @AllArgsConstructor
 @Table(name="shipping_method")
 public class ShippingMethod {
-	
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="shipping_method_id")
 	private final int shipping_method_id = 0;
-	
+
 	@Column(name="shipping_method_name")
 	private String shippingMethodName;
 
