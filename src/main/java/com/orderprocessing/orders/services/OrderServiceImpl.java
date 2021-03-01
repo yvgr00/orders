@@ -159,9 +159,21 @@ public class OrderServiceImpl implements OrderService {
 
 
 	@Override
-	public void deleteById(String theId) {
+	public String deleteById(String theId) {
 		// TODO Auto-generated method stub
-		orderRepository.deleteById(theId);
+		Optional<Order> result = orderRepository.findById(theId);
+		
+		Order order = null;
+		if(result.isPresent()) {
+			order = result.get();
+		}else {
+			throw new RuntimeException("Did not find order - "+theId);
+		}
+		
+		order.setOrderStatus("Canceled");
+		orderRepository.save(order);
+		
+		return "Success";
 	}
 
 }

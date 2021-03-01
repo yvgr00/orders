@@ -10,6 +10,6 @@ public interface OrderService {
 
 	public ResponseDTO saveOrder(RequestDTO order);
 
-	public void deleteById(String theId);
+	public String deleteById(String theId);
 
 }
