@@ -2,13 +2,14 @@ package com.orderprocessing.orders.services;
 
 import com.orderprocessing.orders.dto.RequestDTO;
 import com.orderprocessing.orders.dto.ResponseDTO;
+import com.orderprocessing.orders.entities.Order;
 
 public interface OrderService {
 	
-	public RequestDTO findById(Long theId);
+	public Order findOrderById(String theId);
 	
 	public ResponseDTO saveOrder(RequestDTO order);
 	
-	public void deleteById(Long theId);
+	public void deleteById(String theId);
 
 }

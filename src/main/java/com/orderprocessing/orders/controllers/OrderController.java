@@ -12,8 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
+//import org.springframework.validation.annotation.Validated;
+//import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -47,22 +47,26 @@ public class OrderController {
 
 
 	    @GetMapping("/order/{id}")
-	    public Order getOrderById(@PathVariable("id") final int id) {
-	        return null;
+	    public Order getOrderById(@PathVariable("id") final String theId) {
+	    	
+//	    	HttpStatus httpStatus = HttpStatus.OK;
+	    	Order response = orderService.findOrderById(theId);
+	    	
+	        return response;
 	        
 	        
 	    }
 
-	    @DeleteMapping("/order/cancel/{id}")
-	    public void delOrderById(@PathVariable("id") final int id) {
-	        System.out.println("nbgg");;
-	    }
-
-	    @PostMapping(value = "/orderback", consumes = {MediaType.APPLICATION_JSON_VALUE}, 
-	    		produces = {MediaType.APPLICATION_JSON_VALUE})
-	    public @Valid RequestDTO createOrder(@Valid @RequestBody RequestDTO theOrder) {
-	    	return theOrder;
-	    }
+//	    @DeleteMapping("/order/cancel/{id}")
+//	    public void delOrderById(@PathVariable("id") final int id) {
+//	        System.out.println("nbgg");;
+//	    }
+//
+//	    @PostMapping(value = "/orderback", consumes = {MediaType.APPLICATION_JSON_VALUE}, 
+//	    		produces = {MediaType.APPLICATION_JSON_VALUE})
+//	    public @Valid RequestDTO createOrder(@Valid @RequestBody RequestDTO theOrder) {
+//	    	return theOrder;
+//	    }
 	    
 	    
 	    @PostMapping(value = "/order", consumes = {MediaType.APPLICATION_JSON_VALUE}, 

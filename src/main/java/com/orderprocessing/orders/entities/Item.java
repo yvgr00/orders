@@ -1,5 +1,6 @@
 package com.orderprocessing.orders.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -12,6 +13,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,15 +25,22 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
+//@AllArgsConstructor
 @Table(name="item")
 public class Item {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="item_id")
-	private final Long itemId = 0L;
+	private Long itemId;
 	
+	
+	
+	public Item(Double itemPrice, String itemName) {
+		this.itemPrice = itemPrice;
+		this.itemName = itemName;
+	}
+
 	@Column(name="item_price")
 	private Double itemPrice;
 	
@@ -41,6 +52,7 @@ public class Item {
     		cascade=CascadeType.ALL,
     		mappedBy="item"
     		)
-    private List<OrderLineItems> listItem;
+    @JsonProperty(access=Access.WRITE_ONLY)
+    private List<OrderLineItems> orderLineItems = new ArrayList<>();
 
 }

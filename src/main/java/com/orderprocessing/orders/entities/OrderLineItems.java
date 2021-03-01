@@ -9,7 +9,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import lombok.AllArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -32,11 +34,18 @@ public class OrderLineItems {
 		this.quantity = quantity;
 	}
 
+	public OrderLineItems(Long quantity, Order order, Item item) {
+		this.quantity = quantity;
+		this.order = order;
+		this.item = item;
+	}
+
 	@Column(name="quantity")
 	private Long quantity;
 	
 	@ManyToOne
 	@JoinColumn(name="order_id")
+	@JsonProperty(access=Access.WRITE_ONLY)
 	private Order order;
 	
 	@ManyToOne

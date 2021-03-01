@@ -16,7 +16,7 @@
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>11</java.version>
-<!-- 		<springfox-swagger2.version>2.10.5</springfox-swagger2.version> -->
+		<!-- <springfox-swagger2.version>2.10.5</springfox-swagger2.version> -->
 	</properties>
 	<dependencies>
 		<dependency>
@@ -29,25 +29,25 @@
 		</dependency>
 
 
-<!-- 		https://mvnrepository.com/artifact/io.springfox/springfox-swagger2  -->
-<!-- 		<dependency> -->
-<!-- 			<groupId>io.springfox</groupId> -->
-<!-- 			<artifactId>springfox-swagger2</artifactId> -->
-<!-- 			<version>${springfox-swagger2.version}</version> -->
-<!-- 		</dependency> -->
+		<!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger2 -->
+		<!-- <dependency> -->
+		<!-- <groupId>io.springfox</groupId> -->
+		<!-- <artifactId>springfox-swagger2</artifactId> -->
+		<!-- <version>${springfox-swagger2.version}</version> -->
+		<!-- </dependency> -->
 
-<!--  		https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui  -->
-<!-- 		<dependency> -->
-<!-- 			<groupId>io.springfox</groupId> -->
-<!-- 			<artifactId>springfox-swagger-ui</artifactId> -->
-<!-- 			<version>${springfox-swagger2.version}</version> -->
-<!-- 		</dependency> -->
+		<!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui -->
+		<!-- <dependency> -->
+		<!-- <groupId>io.springfox</groupId> -->
+		<!-- <artifactId>springfox-swagger-ui</artifactId> -->
+		<!-- <version>${springfox-swagger2.version}</version> -->
+		<!-- </dependency> -->
 
-<!-- 		<dependency> -->
-<!-- 			<groupId>io.springfox</groupId> -->
-<!-- 			<artifactId>springfox-boot-starter</artifactId> -->
-<!-- 			<version>3.0.0</version> -->
-<!-- 		</dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>io.springfox</groupId> -->
+		<!-- <artifactId>springfox-boot-starter</artifactId> -->
+		<!-- <version>3.0.0</version> -->
+		<!-- </dependency> -->
 
 
 		<dependency>
@@ -71,6 +71,7 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
 		<!-- https://mvnrepository.com/artifact/javax.validation/validation-api -->
 		<dependency>
 			<groupId>javax.validation</groupId>
@@ -108,6 +109,15 @@
 			<artifactId>jackson-databind</artifactId>
 			<version>2.11.1</version>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>2.12.1</version>
+		</dependency>
+
+
 
 
 

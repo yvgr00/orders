@@ -53,10 +53,11 @@ public class OrderServiceImpl implements OrderService {
 	
 	private  static final Logger logger = LoggerFactory.getLogger(OrderServiceImpl.class);
 	@Override
-	public RequestDTO findById(Long theId) {
+	public Order findOrderById(String theId) {
 		// TODO Auto-generated method stub
 		
 		Optional<Order> result = orderRepository.findById(theId);
+//		ResponseDTO response = new ResponseDTO();
 		
 		Order order = null;
 		if(result.isPresent()) {
@@ -64,7 +65,19 @@ public class OrderServiceImpl implements OrderService {
 		}else {
 			throw new RuntimeException("Did not find order - "+theId);
 		}
-		return null;
+		
+//		logger.info("ddff     "+order.getOrderLineItems());
+//		List<OrderLineItems> orderLineItems = orderLineItemsRepo.findByOrder(order);
+//		List<Transaction> transactions = transactionRepo.findByOrder(order);
+//		
+//		
+//		order.setOrderLineItems(orderLineItems);
+//		order.setTransactions(transactions);
+		
+		
+//		response.setOrder(order);
+//		response.setMessage("found order_id");
+		return order;
 	}
 
 	@Override
@@ -104,7 +117,7 @@ public class OrderServiceImpl implements OrderService {
 		// TODO Auto-generated method stub
 		Customer cust = new Customer();
 		cust.setFirstName(theOrder.getCustomer().getFirstName());
-		cust.setLastName(theOrder.getCustomer().getFirstName());
+		cust.setLastName(theOrder.getCustomer().getLastName());
 		cust.setMiddleName(theOrder.getCustomer().getMiddleName());
         cust.setEmail(theOrder.getCustomer().getEmail());
 		
@@ -114,24 +127,24 @@ public class OrderServiceImpl implements OrderService {
         
        List<PaymentMethod> payments = theOrder.getPaymentMethod();
        
-       ObjectMapper objectMapper = new ObjectMapper();
-       String toSHA = "";
-       try {
-    	   toSHA = objectMapper.writeValueAsString(theOrder) + (new Date()).toString();
-		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-       
-       //Convert string to bytes
-       byte bytes[] = toSHA.getBytes();
-       
-       Checksum checksum = new Adler32();
-       checksum.update(bytes,0,bytes.length);
-       
-       long orderId = checksum.getValue();
-       
-       logger.info("ddffff"+orderId);
+//       ObjectMapper objectMapper = new ObjectMapper();
+//       String toSHA = "";
+//       try {
+//    	   toSHA = objectMapper.writeValueAsString(theOrder) + (new Date()).toString();
+//		} catch (JsonProcessingException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//       
+//       //Convert string to bytes
+//       byte bytes[] = toSHA.getBytes();
+//       
+//       Checksum checksum = new Adler32();
+//       checksum.update(bytes,0,bytes.length);
+//       
+//       long orderId = checksum.getValue();
+//       
+//       logger.info("ddffff"+orderId);
        
 //       List<Transaction> transactions = new ArrayList<Transaction>();
 //       for(int i1=0; i1<payments.size(); i1++) {
@@ -163,8 +176,9 @@ public class OrderServiceImpl implements OrderService {
 //       "refund_status":"false"
        
        Order order = new Order();
-       order.setOrderId(orderId);
+//       order.setOrderId(orderId);
        order.setCustomer(cust);
+//       order.setTransactions(transactions);
        order.setShippingAddressLine1(theOrder.getShipping_address_line1());
        order.setShippingAddressLine2(theOrder.getShipping_address_line2());
        order.setOrderShippingMethod(theOrder.getShippingMethod());
@@ -179,8 +193,9 @@ public class OrderServiceImpl implements OrderService {
        order.setCreatedOn(orderedDate);
        order.setUpdatedOn(orderedDate);
        customerRepo.save(cust);
-       orderRepository.save(order);
        
+       logger.info("dgggggggg    "+order.getCustomer().getEmail());
+//       List<OrderLineItems> olt = new ArrayList<OrderLineItems>();
        for(int j=0; j<theOrder.getOrderLineItems().size(); j++) {
 			OrderLineItems o = theOrder.getOrderLineItems().get(j);
 			Optional<Item> io = itemRepository.findById(o.getOrderItemId());
@@ -191,11 +206,15 @@ public class OrderServiceImpl implements OrderService {
 				orderLineItems.setItem(i);
 				orderLineItems.setQuantity(o.getQuantity());
 				orderLineItems.setOrder(order);
-				orderLineItemsRepo.save(orderLineItems);
+				order.addOrderLineItems(orderLineItems);
+//				olt.add(orderLineItems);
+//				orderLineItemsRepo.save(orderLineItems);
 			
 		} 
       }
        
+       
+//       List<Transaction> transactions = new ArrayList<Transaction>();
        for(int i1=0; i1<payments.size(); i1++) {
     	   PaymentMethod pIn = payments.get(i1);
     	   Optional<PaymentMethod> po = paymentMethodRepository.findById(payments.get(i1).getPaymentMethodId());
@@ -216,16 +235,19 @@ public class OrderServiceImpl implements OrderService {
 				pwrite.setBillingCity(pIn.getBillingCity());
 				pwrite.setBillingState(pIn.getBillingState());
 				pwrite.setBillingZipcode(pIn.getBillingZipcode());
-				paymentMethodRepository.save(pwrite);
+//				paymentMethodRepository.save(pwrite);
 			}
     	   Transaction t = new Transaction();
     	   t.setPaymentMethod(pIn);
     	   t.setTransactionAmount(theOrder.getPaymentAmount().get(i1));
     	   t.setOrder(order);
     	   t.setTransactionStatus("complete");
-    	   transactionRepo.save(t);
+    	   order.addTransactions(t);
+//    	   transactions.add(t);
+//    	   transactionRepo.save(t);
        }
-//       order.setOrderLineItems(orderLineItems);
+       orderRepository.save(order);
+//       order.setOrderLineItems(olt);
 //       order.setTransactions(transactions);
        
        
@@ -239,7 +261,7 @@ public class OrderServiceImpl implements OrderService {
 	
 
 	@Override
-	public void deleteById(Long theId) {
+	public void deleteById(String theId) {
 		// TODO Auto-generated method stub
 		
 		orderRepository.deleteById(theId);
