@@ -32,16 +32,16 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="order")
+@Table(name="orders")
 public class Order {
 	
 	
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+//    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="order_id")
-	private final Long orderId = 0L;
+	private Long orderId;
     
-    @ManyToOne
+    @ManyToOne(optional=false)
     @JoinColumn(name="customer_id")
     private Customer customer;
     
@@ -57,17 +57,19 @@ public class Order {
     @Column(name="order_tax")
     private Double orderTax;
     
-    @OneToOne(cascade= {
-    		CascadeType.DETACH,
-    		CascadeType.MERGE,
-    		CascadeType.PERSIST,
-    		CascadeType.REFRESH,
-    		})
-    @JoinColumn(name="order_shipping_method")
-    private ShippingMethod orderShippingMethod;
+//    @OneToOne(cascade= {
+//    		CascadeType.DETACH,
+//    		CascadeType.MERGE,
+//    		CascadeType.PERSIST,
+//    		CascadeType.REFRESH,
+//    		})
+//    @JoinColumn(name="order_shipping_method")
+//    private ShippingMethod orderShippingMethod;
+    @Column(name="order_shipping_method")
+    private String orderShippingMethod;
     
-    @Column(name="order_shipping_charges")
-    private Double orderShippingCharges;
+//    @Column(name="order_shipping_charges")
+//    private Double orderShippingCharges;
     
     @OneToMany( 
     		fetch = FetchType.LAZY, 
@@ -99,9 +101,6 @@ public class Order {
     @Column(name="shipping_zipcode")
     private String shipping_zipcode;
     
-    
-    @Column(name="refund_status")
-    private boolean refundStatus;
     
     @Basic(optional=false)
     @CreationTimestamp

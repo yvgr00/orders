@@ -36,7 +36,6 @@ public class Item {
     @Column(name="item_name")
     private String itemName;
     
-    
     @OneToMany( 
     		fetch = FetchType.LAZY, 
     		cascade=CascadeType.ALL,

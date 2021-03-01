@@ -18,15 +18,20 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Table(name="order_line_items")
 public class OrderLineItems {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="order_item_id")
-	private final Long orderItemId = 0L;
+	private Long orderItemId;
 	
+	
+	
+	public OrderLineItems(Long quantity) {
+		this.quantity = quantity;
+	}
+
 	@Column(name="quantity")
 	private Long quantity;
 	
@@ -36,6 +41,6 @@ public class OrderLineItems {
 	
 	@ManyToOne
 	@JoinColumn(name="item_id")
-	private Item itemId;
+	private Item item;
 
 }

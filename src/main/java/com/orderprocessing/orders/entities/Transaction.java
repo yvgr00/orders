@@ -32,9 +32,9 @@ public class Transaction {
 	@JoinColumn(name="order_id")
 	private Order order;
 	
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name="payment_method_id")
-	private PaymentMethod paymnetMethod;
+	private PaymentMethod paymentMethod;
 	
 	@Column(name="transaction_amount")
 	private Double transactionAmount;

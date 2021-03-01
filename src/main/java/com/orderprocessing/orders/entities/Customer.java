@@ -19,16 +19,22 @@ import lombok.Setter;
 
 @Entity
 @NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
 @Table(name="customer")
 public class Customer {
 	
+	public Customer(String firstName, String lastName, String middleName, String email) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.middleName = middleName;
+		this.email = email;
+	}
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="customer_id")
-	private final Long customerId = 0L;
+	private Long customerId;
 	
 	@Column(name="first_name")
 	private String firstName;
@@ -42,31 +48,8 @@ public class Customer {
 	@Column(name="email")
 	private String email;
 	
-	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="customer")
-	private List<Order> listOrders;
-	
-	@Column(name="customer_address_line1")
-	private String addressLine1;
-	
-	@Column(name="customer_address_line2")
-	private String addressLine2;
-	
-	@Column(name="customer_city")
-	private String customer_city;
-	
-	@Column(name="customer_state")
-	private String customer_state;
-	
-	@Column(name="customer_zipcode")
-	private String customer_zipcode;
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+//    @OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="customer")
+//    private List<Order> listOrders;
 	
 	
 	

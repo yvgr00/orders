@@ -26,9 +26,9 @@ import lombok.Setter;
 public class PaymentMethod {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+//	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="payment_method_id")
-	private final int paymentMethodId = 0;
+	private Long paymentMethodId;
 	
 	@Column(name="payment_method")
 	private String paymentMethod;
@@ -41,8 +41,7 @@ public class PaymentMethod {
 	
 	@Column(name="billing_city")
 	private String billingCity;
-	
-	
+
     @Column(name="billing_state")
     private String billingState;
     
@@ -53,7 +52,7 @@ public class PaymentMethod {
     @OneToMany( 
     		fetch = FetchType.LAZY, 
     		cascade=CascadeType.ALL,
-    		mappedBy="payment_method"
+    		mappedBy="paymentMethod"
     		)
     private List<Transaction> transactions;
     
